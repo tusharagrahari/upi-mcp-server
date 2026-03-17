@@ -27,6 +27,24 @@ pub enum Category {
     Grocery,
 }
 
+impl Category {
+    pub fn from_str(s: &str) -> Option<Category> {
+        match s.to_lowercase().as_str() {
+            "food" => Some(Category::Food),
+            "grocery" => Some(Category::Grocery),
+            "utilities" => Some(Category::Utilities),
+            "entertainment" => Some(Category::Entertainment),
+            "transportation" => Some(Category::Transportation),
+            "healthcare" => Some(Category::Healthcare),
+            "rental" => Some(Category::Rental),
+            "salary" => Some(Category::Salary),
+            "investment" => Some(Category::Investment),
+            "other" => Some(Category::Other),
+            _ => None,
+        }
+    }
+}
+
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum TransactionType {
     Credit,
