@@ -1,15 +1,28 @@
 use crate::data::store::TransactionStore;
-
+mod server;
+use anyhow::Result;
+use rmcp::{ServiceExt, transport::stdio};
+use server::UpiServer;
 pub mod data;
 pub mod model;
 
-fn main() {
-    let _store = match TransactionStore::load() {
+#[tokio::main]
+async fn main() -> Result<()> {
+    let store = match TransactionStore::load() {
         Ok(s) => s,
         Err(e) => {
             eprintln!("Error loading transactions: {:?}", e);
-            return;
+            TransactionStore::new() // Start with an empty store if loading fails
         }
     };
-    // println!("Loaded transactions: {:?}", store.transactions);
+
+    let service = UpiServer::new(store)
+        .serve(stdio())
+        .await
+        .inspect_err(|e| {
+            eprintln!("serving error: {:?}", e);
+        })?;
+
+    service.waiting().await?;
+    Ok(())
 }

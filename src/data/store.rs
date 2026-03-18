@@ -9,6 +9,11 @@ pub struct TransactionStore {
 }
 
 impl TransactionStore {
+    pub fn new() -> Self {
+        TransactionStore {
+            transactions: Vec::new(),
+        }
+    }
     // this would load from a database or file
     pub fn load() -> anyhow::Result<Self> {
         let file = File::open("data/transaction.json")?;
@@ -16,12 +21,13 @@ impl TransactionStore {
 
         let t: Vec<Transaction> = serde_json::from_reader(reader)?;
         let txn = TransactionStore { transactions: t };
-        
+
         Ok(txn)
     }
 
     pub fn filter_by_category(&self, category: Category) -> Vec<&Transaction> {
-            let t = self.transactions
+        let t = self
+            .transactions
             .iter()
             .filter(|t| t.category == category)
             .collect();
@@ -31,11 +37,18 @@ impl TransactionStore {
     pub fn filter_by_merchant(&self, merchant: &str) -> Vec<&Transaction> {
         self.transactions
             .iter()
-            .filter(|t| t.merchant_name.as_deref().map(|m| m.to_lowercase()) == Some(merchant.to_lowercase()))
+            .filter(|t| {
+                t.merchant_name.as_deref().map(|m| m.to_lowercase())
+                    == Some(merchant.to_lowercase())
+            })
             .collect()
     }
 
-    pub fn filter_by_date_range(&self, start: DateTime<chrono::Utc>, end: DateTime<chrono::Utc>) -> Vec<&Transaction> {
+    pub fn filter_by_date_range(
+        &self,
+        start: DateTime<chrono::Utc>,
+        end: DateTime<chrono::Utc>,
+    ) -> Vec<&Transaction> {
         self.transactions
             .iter()
             .filter(|t| t.timestamp >= start && t.timestamp <= end)
@@ -56,8 +69,8 @@ mod tests {
         assert!(!store.transactions.is_empty());
         println!("Loaded transactions: {:?}", store.transactions);
     }
-    
-     #[test]
+
+    #[test]
     fn test_filter_by_category() {
         let store = TransactionStore::load().unwrap();
         let food_transactions = store.filter_by_category(Category::Food);
@@ -68,7 +81,7 @@ mod tests {
         println!("Food transactions: {:?}", food_transactions);
     }
 
-        #[test]
+    #[test]
     fn test_filter_by_merchant() {
         let store = TransactionStore::load().unwrap();
         let merchant_transactions = store.filter_by_merchant("Zomato");
@@ -79,7 +92,7 @@ mod tests {
         println!("Zomato transactions: {:?}", merchant_transactions);
     }
 
-        #[test]
+    #[test]
     fn test_filter_by_date_range() {
         let store = TransactionStore::load().unwrap();
         let start = Utc.with_ymd_and_hms(2024, 1, 15, 12, 0, 0).unwrap();
@@ -89,6 +102,9 @@ mod tests {
         for t in recent_transactions.clone() {
             assert!(t.timestamp >= start && t.timestamp <= end);
         }
-        println!("Transactions from Jan 15 to Jan 30: {:?}", recent_transactions);
-    }    
+        println!(
+            "Transactions from Jan 15 to Jan 30: {:?}",
+            recent_transactions
+        );
+    }
 }
