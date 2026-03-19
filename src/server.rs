@@ -1,7 +1,7 @@
 use crate::data::store::TransactionStore;
 use rmcp::{
     ServerHandler,
-    handler::server::tool::ToolRouter,
+    handler::server::{tool::ToolRouter, wrapper::Parameters},
     model::{ServerCapabilities, ServerInfo},
     tool, tool_handler, tool_router,
 };
@@ -20,19 +20,32 @@ pub struct UpiServer {
     tool_router: ToolRouter<Self>, //This router is a lookup table — it maps tool names ("search_transactions") to the actual method that handles them.
 }
 
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
+pub struct SearchTxnRequest {
+    // Define your search parameters here, e.g.:
+    //
+    // pub date_range: Option<(DateTime<Utc>, DateTime<Utc>)>,
+    // pub amount_range: Option<(f64, f64)>,
+    // pub merchant_name: Option<String>,
+    #[schemars(
+        description = "The category of transactions to search for. For example: 'Food', 'Transport', 'Shopping', etc."
+    )]
+    pub category: String,
+}
+
 #[tool_router]
 impl UpiServer {
     pub fn new(store: TransactionStore) -> Self {
         UpiServer {
             store,
-            tool_router: ToolRouter::new(),
+            tool_router: Self::tool_router(),
         }
     }
 
     #[tool(
         description = "Search UPI transactions based on various filters like date range, amount, merchant name, etc."
     )]
-    fn search_txn(&self) -> String {
+    fn search_txn(&self, Parameters(_): Parameters<SearchTxnRequest>) -> String {
         "This is a placeholder for the search_txn tool".to_string()
     }
 }

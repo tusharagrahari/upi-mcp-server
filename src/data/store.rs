@@ -1,7 +1,6 @@
 use chrono::DateTime;
 
 use crate::model::{Category, Transaction};
-use std::{fs::File, io::BufReader};
 
 #[derive(Debug)]
 pub struct TransactionStore {
@@ -16,13 +15,9 @@ impl TransactionStore {
     }
     // this would load from a database or file
     pub fn load() -> anyhow::Result<Self> {
-        let file = File::open("data/transaction.json")?;
-        let reader = BufReader::new(file);
-
-        let t: Vec<Transaction> = serde_json::from_reader(reader)?;
-        let txn = TransactionStore { transactions: t };
-
-        Ok(txn)
+        let data = include_str!("../../data/transaction.json");
+        let t: Vec<Transaction> = serde_json::from_str(data)?;
+        Ok(TransactionStore { transactions: t })
     }
 
     pub fn filter_by_category(&self, category: Category) -> Vec<&Transaction> {
