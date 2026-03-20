@@ -1,4 +1,6 @@
-use crate::{data::store::{TransactionStore}};
+use std::collections::HashMap;
+
+use crate::{data::store::TransactionStore, model};
 use rmcp::{
     ServerHandler,
     handler::server::{tool::ToolRouter, wrapper::Parameters},
@@ -49,6 +51,26 @@ pub struct SearchTxnRequest {
     pub category: Option<String>,
 }
 
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
+pub struct SpendingBreakdownRequest {
+    #[schemars(
+        description = "The start date for the spending breakdown. Format: YYYY-MM or YYYY-MM-DD"
+    )]
+    pub start_date: Option<String>,
+    #[schemars(
+        description = "The end date for the spending breakdown. Format: YYYY-MM or YYYY-MM-DD"
+    )]
+    pub end_date: Option<String>,
+}
+
+#[derive(Debug, serde::Serialize)]
+pub struct CategoryBreakdown {
+    pub category: String,
+    pub total_amount: f64,
+    pub transaction_count: u32,
+    pub percentage_of_total: f64,
+}
+
 #[tool_router]
 impl UpiServer {
     pub fn new(store: TransactionStore) -> Self {
@@ -72,12 +94,69 @@ impl UpiServer {
             category,
         }): Parameters<SearchTxnRequest>,
     ) -> String {
-        let mut cate = true;
-        let results = TransactionStore::filter_combined(&self.store, start_date, end_date, min_amount, max_amount, merchant_name, category, &mut cate);
-        if !cate {
-            return "Invalid category. Valid values: Food, Grocery, Utilities, Entertainment, Transportation, Healthcare, Rental, Salary, Investment, Other.".to_string();
-        }
+        let results = match TransactionStore::filter_combined(
+            &self.store,
+            start_date,
+            end_date,
+            min_amount,
+            max_amount,
+            merchant_name,
+            category,
+        ) {
+            Ok(res) => res,
+            Err(e) => return e, // Return the error message if filtering fails (e.g., due to invalid category)
+        };
         serde_json::to_string(&results).unwrap_or_else(|_| "Failed to serialize".to_string())
+    }
+
+    #[tool(
+        description = "Returns a breakdown of spending by category for a given time period. Shows total amount, transaction count, and percentage share per category, sorted by highest spend. Use this when the user asks about spending patterns, budget analysis, or category-wise expenses."
+    )]
+    fn get_spending_breakdown(
+        &self,
+        Parameters(SpendingBreakdownRequest {
+            start_date,
+            end_date,
+        }): Parameters<SpendingBreakdownRequest>,
+    ) -> String {
+        let results = match TransactionStore::filter_combined(
+            &self.store,
+            start_date,
+            end_date,
+            None,
+            None,
+            None,
+            None,
+        ) {
+            Ok(res) => res,
+            Err(e) => return e, // Return the error message if filtering fails (e.g., due to invalid category)
+        };
+        let mut breakdown: HashMap<&model::Category, (f64, u32)> = HashMap::new();
+        let mut total_spent = 0.0;
+        for txn in results {
+            if txn.transaction_type == model::TransactionType::Credit {
+                continue; // Skip credits for spending breakdown
+            }
+            let entry = breakdown.entry(&txn.category).or_insert((0.0, 0));
+            entry.0 += txn.amount;
+            entry.1 += 1;
+            total_spent += txn.amount;
+        }
+        let mut breakdown: Vec<CategoryBreakdown> = breakdown
+            .into_iter()
+            .map(|(cat, (amount, count))| CategoryBreakdown {
+                category: format!("{:?}", cat),
+                total_amount: amount,
+                transaction_count: count,
+                percentage_of_total: if total_spent > 0.0 {
+                    ((amount / total_spent) * 10000.0).round() / 100.0 // Round to 2 decimal places
+                } else {
+                    0.0
+                },
+            })
+            .collect();
+        breakdown.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap());
+        serde_json::to_string(&breakdown).unwrap_or_else(|_| "Failed to serialize".to_string())
     }
 }
 

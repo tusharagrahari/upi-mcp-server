@@ -13,7 +13,7 @@ pub struct Transaction {
     pub merchant_name: Option<String>,
 }
 
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Hash)]
 pub enum Category {
     Food,
     Utilities,
