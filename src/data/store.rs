@@ -1,6 +1,6 @@
-use chrono::DateTime;
+use chrono::{DateTime, NaiveDate, Utc};
 
-use crate::model::{Category, Transaction};
+use crate::{data::store, model::{self, Category, Transaction}};
 
 #[derive(Debug)]
 pub struct TransactionStore {
@@ -48,6 +48,87 @@ impl TransactionStore {
             .iter()
             .filter(|t| t.timestamp >= start && t.timestamp <= end)
             .collect()
+    }
+
+    pub fn filter_combined(
+        &self,
+        start_date: Option<String>,
+        end_date: Option<String>,
+        min_amount: Option<f64>,
+        max_amount: Option<f64>,
+        merchant_name: Option<String>,
+        category: Option<String>,
+        cate: &mut bool,
+    ) -> Vec<&Transaction> {
+        let results = self
+        .transactions
+        .iter()
+        .filter(|txn| {
+            let mut matches = true;
+            if let Some(ref start) = start_date {
+                if let Ok(start_dt) = NaiveDate::parse_from_str(start, "%Y-%m-%d")
+                    .or_else(|_| {
+                        NaiveDate::parse_from_str(&format!("{}-01", start), "%Y-%m-%d")
+                    })
+                    .and_then(|d| Ok(d.and_hms_opt(0, 0, 0).unwrap().and_utc()))
+                {
+                    if txn.timestamp < start_dt.with_timezone(&Utc) {
+                        matches = false;
+                    }
+                }
+            }
+            if let Some(ref end) = end_date {
+                if let Ok(end_dt) = NaiveDate::parse_from_str(end, "%Y-%m-%d")
+                    // For year-month input (e.g. "2024-01"), we want the last day of that month as the end date.
+                    // Strategy: parse as 1st of month → add 1 month → subtract 1 day = last day of month.
+                    .or_else(|_| {
+                        NaiveDate::parse_from_str(&format!("{}-01", end), "%Y-%m-%d").map(|d| {
+                            d.checked_add_months(chrono::Months::new(1))
+                                .unwrap()
+                                .pred_opt()
+                                .unwrap()
+                        })
+                    })
+                    .and_then(|d| Ok(d.and_hms_opt(23, 59, 59).unwrap().and_utc()))
+                {
+                    if txn.timestamp > end_dt.with_timezone(&Utc) {
+                        matches = false;
+                    }
+                }
+            }
+            if let Some(min) = min_amount {
+                if txn.amount < min {
+                    matches = false;
+                }
+            }
+            if let Some(max) = max_amount {
+                if txn.amount > max {
+                    matches = false;
+                }
+            }
+            if let Some(ref merchant) = merchant_name {
+                let temp = txn.merchant_name.as_deref().map(|m| m.to_lowercase());
+                if let Some(temp) = temp {
+                    if !temp.contains(merchant.to_lowercase().as_str()) {
+                        matches = false;
+                    }
+                } else {
+                    matches = false;
+                }
+            }
+            if let Some(ref cat) = category {
+                let parsed_cat = model::Category::from_str(cat);
+                if parsed_cat.is_none() {
+                    *cate = false;
+                    matches = false;
+                } else if txn.category != parsed_cat.unwrap() {
+                    matches = false;
+                }
+            }
+            matches
+        })
+        .collect::<Vec<_>>();
+        results
     }
 }
 
