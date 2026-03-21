@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{data::store::TransactionStore, model};
+use crate::{data::store::TransactionStore, model::{self, CategoryBreakdown}};
 use rmcp::{
     ServerHandler,
     handler::server::{tool::ToolRouter, wrapper::Parameters},
@@ -52,6 +52,20 @@ pub struct SearchTxnRequest {
 }
 
 #[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
+pub struct ComparePeriodRequest {
+    #[schemars(
+        description = "The first period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
+    )]
+    pub period1_start: String,
+    pub period1_end: String,
+    #[schemars(
+        description = "The second period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
+    )]
+    pub period2_start: String,
+    pub period2_end: String,
+}
+
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct SpendingBreakdownRequest {
     #[schemars(
         description = "The start date for the spending breakdown. Format: YYYY-MM or YYYY-MM-DD"
@@ -63,13 +77,6 @@ pub struct SpendingBreakdownRequest {
     pub end_date: Option<String>,
 }
 
-#[derive(Debug, serde::Serialize)]
-pub struct CategoryBreakdown {
-    pub category: String,
-    pub total_amount: f64,
-    pub transaction_count: u32,
-    pub percentage_of_total: f64,
-}
 
 #[tool_router]
 impl UpiServer {
@@ -119,46 +126,34 @@ impl UpiServer {
             end_date,
         }): Parameters<SpendingBreakdownRequest>,
     ) -> String {
-        let results = match TransactionStore::filter_combined(
-            &self.store,
-            start_date,
-            end_date,
-            None,
-            None,
-            None,
-            None,
-        ) {
-            Ok(res) => res,
-            Err(e) => return e, // Return the error message if filtering fails (e.g., due to invalid category)
-        };
-        let mut breakdown: HashMap<&model::Category, (f64, u32)> = HashMap::new();
-        let mut total_spent = 0.0;
-        for txn in results {
-            if txn.transaction_type == model::TransactionType::Credit {
-                continue; // Skip credits for spending breakdown
-            }
-            let entry = breakdown.entry(&txn.category).or_insert((0.0, 0));
-            entry.0 += txn.amount;
-            entry.1 += 1;
-            total_spent += txn.amount;
-        }
-        let mut breakdown: Vec<CategoryBreakdown> = breakdown
-            .into_iter()
-            .map(|(cat, (amount, count))| CategoryBreakdown {
-                category: format!("{:?}", cat),
-                total_amount: amount,
-                transaction_count: count,
-                percentage_of_total: if total_spent > 0.0 {
-                    ((amount / total_spent) * 10000.0).round() / 100.0 // Round to 2 decimal places
-                } else {
-                    0.0
-                },
-            })
-            .collect();
-        breakdown.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap());
+        let breakdown = self.store.aggregate_by_category(start_date, end_date);
         serde_json::to_string(&breakdown).unwrap_or_else(|_| "Failed to serialize".to_string())
     }
-}
+
+    #[tool(
+        description = "Compares spending across two arbitrary time periods, broken down by category. Returns a side-by-side delta showing total spent, transaction count, and percentage change per category for period A vs period B. Categories that appear in only one period are included with 0.0 for the other — absence of spending is meaningful data. Use this when the user asks to compare spending between two months, date ranges, or any two time windows. Do NOT use get_spending_breakdown twice and diff manually — use this tool instead." 
+    )]
+    fn compare_periods(
+        &self,
+        Parameters(ComparePeriodRequest {
+            period1_start,
+            period1_end,
+            period2_start,
+            period2_end,
+        }): Parameters<ComparePeriodRequest>,
+    ) -> String {
+        let breakdown1 = self.store.aggregate_by_category(Some(period1_start), Some(period1_end));
+        let breakdown2 = self.store.aggregate_by_category(Some(period2_start), Some(period2_end));
+
+        // Create a map for easy lookup of categories in breakdown2
+        let mut breakdown2_map: HashMap<String, CategoryBreakdown> = HashMap::new();
+        for item in breakdown2 {
+            breakdown2_map.insert(item.category.clone(), item);
+        }
+
+        "return".to_string() // Placeholder, implement the actual comparison logic and return a structured result as JSON string.
+    }
+}        
 
 #[tool_handler] //When rmcp receives a tools/call request, ServerHandler is what handles it — and #[tool_handler] generates the implementation that delegates to your tool_router.
 impl ServerHandler for UpiServer {

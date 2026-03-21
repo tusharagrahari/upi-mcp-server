@@ -27,6 +27,14 @@ pub enum Category {
     Grocery,
 }
 
+#[derive(Debug, serde::Serialize)]
+pub struct CategoryBreakdown {
+    pub category: String,
+    pub total_amount: f64,
+    pub transaction_count: u32,
+    pub percentage_of_total: f64,
+}
+
 impl Category {
     pub fn from_str(s: &str) -> Option<Category> {
         match s.to_lowercase().as_str() {

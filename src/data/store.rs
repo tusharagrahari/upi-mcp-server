@@ -1,6 +1,8 @@
+use std::collections::HashMap;
+
 use chrono::{DateTime, NaiveDate, Utc};
 
-use crate::model::{self, Category, Transaction};
+use crate::model::{self, Category, CategoryBreakdown, Transaction, TransactionType};
 
 #[derive(Debug)]
 pub struct TransactionStore {
@@ -133,6 +135,34 @@ impl TransactionStore {
         } else {
             Err("Invalid category. Valid values: Food, Grocery, Utilities, Entertainment, Transportation, Healthcare, Rental, Salary, Investment, Other.".to_string())
         }
+    }
+
+    pub fn aggregate_by_category(&self, start_date: Option<String>, end_date: Option<String>) -> Vec<CategoryBreakdown> {
+        let filtered = self.filter_combined(start_date, end_date, None, None, None, None).expect("category is None, this cannot fail");
+        let mut total_spent = 0.0;
+        let mut agg: HashMap<String, (f64, u32)> = HashMap::new();
+        for txn in filtered {
+            if txn.transaction_type == TransactionType::Credit {
+                continue; // Skip credits for spending breakdown
+            }
+            let entry = agg.entry(format!("{:?}", txn.category)).or_insert((0.0, 0));
+            entry.0 += txn.amount;
+            entry.1 += 1;
+            total_spent += txn.amount;
+        }
+        // let mut result: Vec<(String, f64, u32)> = agg.into_iter().map(|(cat, (amount, count))| (cat, amount, count)).collect();
+        let mut result : Vec<CategoryBreakdown> = agg.into_iter().map(|(cat, (amount, count))| CategoryBreakdown {
+            category: cat,
+            total_amount: amount,
+            transaction_count: count,
+            percentage_of_total: if total_spent > 0.0 {
+                ((amount / total_spent) * 10000.0).round() / 100.0 // Round to 2 decimal places
+            } else {
+                0.0
+            },
+        }).collect();
+        result.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap());
+        result
     }
 }
 
