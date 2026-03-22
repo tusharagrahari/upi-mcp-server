@@ -137,8 +137,14 @@ impl TransactionStore {
         }
     }
 
-    pub fn aggregate_by_category(&self, start_date: Option<String>, end_date: Option<String>) -> Vec<CategoryBreakdown> {
-        let filtered = self.filter_combined(start_date, end_date, None, None, None, None).expect("category is None, this cannot fail");
+    pub fn aggregate_by_category(
+        &self,
+        start_date: Option<String>,
+        end_date: Option<String>,
+    ) -> Vec<CategoryBreakdown> {
+        let filtered = self
+            .filter_combined(start_date, end_date, None, None, None, None)
+            .expect("category is None, this cannot fail");
         let mut total_spent = 0.0;
         let mut agg: HashMap<String, (f64, u32)> = HashMap::new();
         for txn in filtered {
@@ -151,16 +157,19 @@ impl TransactionStore {
             total_spent += txn.amount;
         }
         // let mut result: Vec<(String, f64, u32)> = agg.into_iter().map(|(cat, (amount, count))| (cat, amount, count)).collect();
-        let mut result : Vec<CategoryBreakdown> = agg.into_iter().map(|(cat, (amount, count))| CategoryBreakdown {
-            category: cat,
-            total_amount: amount,
-            transaction_count: count,
-            percentage_of_total: if total_spent > 0.0 {
-                ((amount / total_spent) * 10000.0).round() / 100.0 // Round to 2 decimal places
-            } else {
-                0.0
-            },
-        }).collect();
+        let mut result: Vec<CategoryBreakdown> = agg
+            .into_iter()
+            .map(|(cat, (amount, count))| CategoryBreakdown {
+                category: cat,
+                total_amount: amount,
+                transaction_count: count,
+                percentage_of_total: if total_spent > 0.0 {
+                    ((amount / total_spent) * 10000.0).round() / 100.0 // Round to 2 decimal places
+                } else {
+                    0.0
+                },
+            })
+            .collect();
         result.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap());
         result
     }

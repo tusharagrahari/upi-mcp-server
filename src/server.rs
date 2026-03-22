@@ -1,12 +1,13 @@
 use std::collections::HashMap;
 
-use crate::{data::store::TransactionStore, model::{self, CategoryBreakdown}};
+use crate::{data::store::TransactionStore, model::CategoryBreakdown};
 use rmcp::{
     ServerHandler,
     handler::server::{tool::ToolRouter, wrapper::Parameters},
     model::{ServerCapabilities, ServerInfo},
     tool, tool_handler, tool_router,
 };
+use serde::Serialize;
 
 /*
 Summary of the flow:
@@ -54,15 +55,32 @@ pub struct SearchTxnRequest {
 #[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct ComparePeriodRequest {
     #[schemars(
-        description = "The first period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
+        description = "The start of first period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
     )]
     pub period1_start: String,
+    #[schemars(
+        description = "The end of first period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
+    )]
     pub period1_end: String,
     #[schemars(
-        description = "The second period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
+        description = "The start of second period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
     )]
     pub period2_start: String,
+    #[schemars(
+        description = "The end of second period to compare. Format: YYYY-MM or YYYY-MM-DD for start and end dates."
+    )]
     pub period2_end: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct CompareResult {
+    category: String,
+    period1_total: f64,
+    period1_count: u32,
+    period2_total: f64,
+    period2_count: u32,
+    total_delta: f64,   // period2_total - period1_total
+    count_delta: isize, // period2_count - period1_count
 }
 
 #[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
@@ -76,7 +94,6 @@ pub struct SpendingBreakdownRequest {
     )]
     pub end_date: Option<String>,
 }
-
 
 #[tool_router]
 impl UpiServer {
@@ -131,7 +148,7 @@ impl UpiServer {
     }
 
     #[tool(
-        description = "Compares spending across two arbitrary time periods, broken down by category. Returns a side-by-side delta showing total spent, transaction count, and percentage change per category for period A vs period B. Categories that appear in only one period are included with 0.0 for the other — absence of spending is meaningful data. Use this when the user asks to compare spending between two months, date ranges, or any two time windows. Do NOT use get_spending_breakdown twice and diff manually — use this tool instead." 
+        description = "Compares spending across two arbitrary time periods, broken down by category. Returns a side-by-side delta showing total spent, transaction count, per category for period A vs period B. Categories that appear in only one period are included with 0.0 for the other — absence of spending is meaningful data. Use this when the user asks to compare spending between two months, date ranges, or any two time windows. Do NOT use get_spending_breakdown twice and diff manually — use this tool instead."
     )]
     fn compare_periods(
         &self,
@@ -142,18 +159,74 @@ impl UpiServer {
             period2_end,
         }): Parameters<ComparePeriodRequest>,
     ) -> String {
-        let breakdown1 = self.store.aggregate_by_category(Some(period1_start), Some(period1_end));
-        let breakdown2 = self.store.aggregate_by_category(Some(period2_start), Some(period2_end));
+        let breakdown1 = self
+            .store
+            .aggregate_by_category(Some(period1_start), Some(period1_end));
+        let breakdown2 = self
+            .store
+            .aggregate_by_category(Some(period2_start), Some(period2_end));
 
         // Create a map for easy lookup of categories in breakdown2
-        let mut breakdown2_map: HashMap<String, CategoryBreakdown> = HashMap::new();
+        let mut breakdown2_map: HashMap<String, (CategoryBreakdown, bool)> = HashMap::new(); // The bool is a flag to indicate if the category was matched with breakdown1
         for item in breakdown2 {
-            breakdown2_map.insert(item.category.clone(), item);
+            breakdown2_map.insert(item.category.clone(), (item, false));
         }
 
-        "return".to_string() // Placeholder, implement the actual comparison logic and return a structured result as JSON string.
+        let mut comparison_results: Vec<CompareResult> = Vec::new();
+
+        for item in breakdown1.iter() {
+            if let Some((breakdown2_item, matched)) = breakdown2_map.get_mut(&item.category) {
+                // Category exists in both periods, calculate deltas
+                let total_delta = breakdown2_item.total_amount - item.total_amount;
+                let count_delta =
+                    breakdown2_item.transaction_count as isize - item.transaction_count as isize;
+
+                let result = CompareResult {
+                    category: item.category.clone(),
+                    period1_total: item.total_amount,
+                    period1_count: item.transaction_count,
+                    period2_total: breakdown2_item.total_amount,
+                    period2_count: breakdown2_item.transaction_count,
+                    total_delta,
+                    count_delta,
+                };
+                comparison_results.push(result);
+                *matched = true; // Update breakdown2_item with the deltas and mark it as matched
+            } else {
+                // Category exists only in period1, add it to the map with 0 values for period2
+                let result = CompareResult {
+                    category: item.category.clone(),
+                    period1_total: item.total_amount,
+                    period1_count: item.transaction_count,
+                    period2_total: 0.0,
+                    period2_count: 0,
+                    total_delta: -item.total_amount, // Since period2 is 0, the delta is negative of period1
+                    count_delta: -(item.transaction_count as isize), // Similarly for count
+                };
+                comparison_results.push(result);
+            }
+        }
+
+        // Now add categories that exist only in period2
+        for (category, (breakdown2_item, matched)) in breakdown2_map.iter() {
+            if !*matched {
+                let result = CompareResult {
+                    category: category.clone(),
+                    period1_total: 0.0,
+                    period1_count: 0,
+                    period2_total: breakdown2_item.total_amount,
+                    period2_count: breakdown2_item.transaction_count,
+                    total_delta: breakdown2_item.total_amount, // Since period1 is 0, the delta is just the period2 total
+                    count_delta: breakdown2_item.transaction_count as isize, // Similarly for count
+                };
+                comparison_results.push(result);
+            }
+        }
+
+        serde_json::to_string(&comparison_results)
+            .unwrap_or_else(|_| "Failed to serialize".to_string())
     }
-}        
+}
 
 #[tool_handler] //When rmcp receives a tools/call request, ServerHandler is what handles it — and #[tool_handler] generates the implementation that delegates to your tool_router.
 impl ServerHandler for UpiServer {
