@@ -1,8 +1,8 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
-use chrono::{DateTime, NaiveDate, Utc};
+use chrono::{Datelike, DateTime, NaiveDate, Utc};
 
-use crate::model::{self, Category, CategoryBreakdown, Transaction, TransactionType};
+use crate::model::{self, Category, CategoryBreakdown, RecurringTransaction, Transaction, TransactionType};
 
 #[derive(Debug)]
 pub struct TransactionStore {
@@ -171,6 +171,69 @@ impl TransactionStore {
             })
             .collect();
         result.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap());
+        result
+    }
+
+    pub fn recurring_transactions(&self) -> Vec<RecurringTransaction> {
+        // Anchor = month of the latest transaction in the store
+        let anchor = match self.transactions.iter().map(|t| t.timestamp.date_naive()).max() {
+            Some(d) => d,
+            None => return vec![],
+        };
+
+        // Window: 3 months before anchor month, excluding anchor month itself
+        let anchor_first = NaiveDate::from_ymd_opt(anchor.year(), anchor.month(), 1)
+            .expect("anchor date is always valid");
+        let window_end = anchor_first.pred_opt().expect("anchor is never year 0");
+        let window_start = anchor_first
+            .checked_sub_months(chrono::Months::new(3))
+            .expect("anchor month is never within 3 months of year 0");
+
+        // Group debit transactions in the window by (merchant_name, amount_in_paise)
+        // Skip transactions with no merchant name
+        let mut groups: HashMap<(String, i64), Vec<(NaiveDate, &Transaction)>> = HashMap::new();
+        for txn in &self.transactions {
+            if txn.transaction_type != TransactionType::Debit {
+                continue;
+            }
+            let merchant = match &txn.merchant_name {
+                Some(m) => m.clone(),
+                None => continue,
+            };
+            let date = txn.timestamp.date_naive();
+            if date < window_start || date > window_end {
+                continue;
+            }
+            let paise = (txn.amount * 100.0).round() as i64;
+            groups.entry((merchant, paise)).or_default().push((date, txn));
+        }
+
+        let mut result = Vec::new();
+        for ((merchant, _paise), mut entries) in groups {
+            // Must appear exactly once in each of the 3 months
+            if entries.len() != 3 {
+                continue;
+            }
+            let unique_months: HashSet<(i32, u32)> =
+                entries.iter().map(|(d, _)| (d.year(), d.month())).collect();
+            if unique_months.len() != 3 {
+                continue;
+            }
+
+            // Sort by date, then check both intervals are within 28–32 days
+            entries.sort_by_key(|(d, _)| *d);
+            let interval1 = (entries[1].0 - entries[0].0).num_days();
+            let interval2 = (entries[2].0 - entries[1].0).num_days();
+            if !(28..=32).contains(&interval1) || !(28..=32).contains(&interval2) {
+                continue;
+            }
+
+            result.push(RecurringTransaction {
+                merchant_name: merchant,
+                amount: entries[0].1.amount,
+                category: entries[0].1.category.clone(),
+            });
+        }
         result
     }
 }

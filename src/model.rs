@@ -13,7 +13,7 @@ pub struct Transaction {
     pub merchant_name: Option<String>,
 }
 
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Hash)]
 pub enum Category {
     Food,
     Utilities,
@@ -57,4 +57,11 @@ impl Category {
 pub enum TransactionType {
     Credit,
     Debit,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RecurringTransaction {
+    pub merchant_name: String,
+    pub amount: f64,
+    pub category: Category,
 }

@@ -83,6 +83,12 @@ pub struct CompareResult {
     count_delta: isize, // period2_count - period1_count
 }
 
+#[derive(Serialize)]
+pub struct RecurringPaymentsResponse<'a> {
+    recurring_payments: &'a Vec<crate::model::RecurringTransaction>,
+    monthly_recurring_total: f64,
+}
+
 #[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct SpendingBreakdownRequest {
     #[schemars(
@@ -225,6 +231,20 @@ impl UpiServer {
 
         serde_json::to_string(&comparison_results)
             .unwrap_or_else(|_| "Failed to serialize".to_string())
+    }
+
+    #[tool(
+        description = "Detects recurring payments (subscriptions, rent, utilities) in the transaction history. Requires no input — automatically scans the 3 months prior to the latest transaction date. A payment is considered recurring if the same merchant charged the same amount exactly once per month with 28–32 day intervals. Returns a flat list of recurring payments and a monthly_recurring_total. Use this when the user asks about subscriptions, recurring charges, or what they pay every month."
+    )]
+    fn detect_recurring_payments(&self) -> String {
+        let recurring = self.store.recurring_transactions();
+        let monthly_recurring_total: f64 = recurring.iter().map(|r| r.amount).sum();
+        
+        let response = RecurringPaymentsResponse {
+            recurring_payments: &recurring,
+            monthly_recurring_total,
+        };
+        serde_json::to_string(&response).unwrap_or_else(|_| "Failed to serialize".to_string())
     }
 }
 

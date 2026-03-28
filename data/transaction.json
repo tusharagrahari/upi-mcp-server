@@ -518,5 +518,1505 @@
         "upi_id": "priya@okhdfc",
         "transaction_type": "Debit",
         "merchant_name": null
+    },
+    {
+        "id": "txn_1234567942",
+        "amount": 60000.00,
+        "timestamp": "2024-03-01T09:10:00Z",
+        "description": "Salary",
+        "category": "Salary",
+        "upi_id": "natpaycor@hdfc",
+        "transaction_type": "Credit",
+        "merchant_name": "NatPay Corp"
+    },
+    {
+        "id": "txn_1234567943",
+        "amount": 440.00,
+        "timestamp": "2024-03-01T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567944",
+        "amount": 120.00,
+        "timestamp": "2024-03-02T08:15:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567945",
+        "amount": 510.00,
+        "timestamp": "2024-03-02T20:45:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567946",
+        "amount": 88.00,
+        "timestamp": "2024-03-04T07:50:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234567947",
+        "amount": 12000.00,
+        "timestamp": "2024-03-05T18:00:00Z",
+        "description": "Monthly Rent",
+        "category": "Rental",
+        "upi_id": "landlord@sbi",
+        "transaction_type": "Debit",
+        "merchant_name": "Landlord"
+    },
+    {
+        "id": "txn_1234567948",
+        "amount": 370.00,
+        "timestamp": "2024-03-06T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567949",
+        "amount": 95.00,
+        "timestamp": "2024-03-07T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567950",
+        "amount": 2800.00,
+        "timestamp": "2024-03-07T16:30:00Z",
+        "description": "Weekly Groceries",
+        "category": "Grocery",
+        "upi_id": "bigbasket@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "BigBasket"
+    },
+    {
+        "id": "txn_1234567951",
+        "amount": 580.00,
+        "timestamp": "2024-03-08T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567952",
+        "amount": 115.00,
+        "timestamp": "2024-03-09T08:20:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234567953",
+        "amount": 649.00,
+        "timestamp": "2024-03-10T20:45:00Z",
+        "description": "Netflix Subscription",
+        "category": "Entertainment",
+        "upi_id": "netflix@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Netflix"
+    },
+    {
+        "id": "txn_1234567954",
+        "amount": 199.00,
+        "timestamp": "2024-03-10T20:46:00Z",
+        "description": "Spotify Subscription",
+        "category": "Entertainment",
+        "upi_id": "spotify@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Spotify"
+    },
+    {
+        "id": "txn_1234567955",
+        "amount": 390.00,
+        "timestamp": "2024-03-11T13:10:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567956",
+        "amount": 105.00,
+        "timestamp": "2024-03-12T08:05:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567957",
+        "amount": 550.00,
+        "timestamp": "2024-03-12T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567958",
+        "amount": 3500.00,
+        "timestamp": "2024-03-13T11:00:00Z",
+        "description": "Holi shopping",
+        "category": "Other",
+        "upi_id": "meesho@axisbank",
+        "transaction_type": "Debit",
+        "merchant_name": "Meesho"
+    },
+    {
+        "id": "txn_1234567959",
+        "amount": 92.00,
+        "timestamp": "2024-03-14T07:55:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234567960",
+        "amount": 460.00,
+        "timestamp": "2024-03-14T20:30:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567961",
+        "amount": 750.00,
+        "timestamp": "2024-03-15T16:00:00Z",
+        "description": "Grocery Run",
+        "category": "Grocery",
+        "upi_id": "blinkit@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Blinkit"
+    },
+    {
+        "id": "txn_1234567962",
+        "amount": 980.00,
+        "timestamp": "2024-03-16T10:30:00Z",
+        "description": "Electricity Bill",
+        "category": "Utilities",
+        "upi_id": "bescom@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "BESCOM"
+    },
+    {
+        "id": "txn_1234567963",
+        "amount": 110.00,
+        "timestamp": "2024-03-16T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567964",
+        "amount": 530.00,
+        "timestamp": "2024-03-17T20:50:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567965",
+        "amount": 1200.00,
+        "timestamp": "2024-03-17T14:00:00Z",
+        "description": "Pharmacy",
+        "category": "Healthcare",
+        "upi_id": "medplus@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "MedPlus"
+    },
+    {
+        "id": "txn_1234567966",
+        "amount": 2100.00,
+        "timestamp": "2024-03-18T15:30:00Z",
+        "description": "Groceries",
+        "category": "Grocery",
+        "upi_id": "bigbasket@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "BigBasket"
+    },
+    {
+        "id": "txn_1234567967",
+        "amount": 799.00,
+        "timestamp": "2024-03-19T11:00:00Z",
+        "description": "Broadband Bill",
+        "category": "Utilities",
+        "upi_id": "jio@jiopay",
+        "transaction_type": "Debit",
+        "merchant_name": "Jio Fiber"
+    },
+    {
+        "id": "txn_1234567968",
+        "amount": 420.00,
+        "timestamp": "2024-03-19T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567969",
+        "amount": 98.00,
+        "timestamp": "2024-03-20T08:10:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567970",
+        "amount": 8500.00,
+        "timestamp": "2024-03-20T19:00:00Z",
+        "description": "Flight Tickets - Goa trip",
+        "category": "Transportation",
+        "upi_id": "indigo@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "IndiGo"
+    },
+    {
+        "id": "txn_1234567971",
+        "amount": 570.00,
+        "timestamp": "2024-03-20T21:30:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567972",
+        "amount": 3200.00,
+        "timestamp": "2024-03-21T10:00:00Z",
+        "description": "Hotel Booking",
+        "category": "Other",
+        "upi_id": "oyo@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "OYO"
+    },
+    {
+        "id": "txn_1234567973",
+        "amount": 340.00,
+        "timestamp": "2024-03-22T13:00:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567974",
+        "amount": 125.00,
+        "timestamp": "2024-03-23T08:30:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234567975",
+        "amount": 490.00,
+        "timestamp": "2024-03-23T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567976",
+        "amount": 10000.00,
+        "timestamp": "2024-03-25T10:00:00Z",
+        "description": "Mutual Fund SIP",
+        "category": "Investment",
+        "upi_id": "zerodha@kotak",
+        "transaction_type": "Debit",
+        "merchant_name": "Zerodha"
+    },
+    {
+        "id": "txn_1234567977",
+        "amount": 410.00,
+        "timestamp": "2024-03-25T20:45:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567978",
+        "amount": 1800.00,
+        "timestamp": "2024-03-26T15:00:00Z",
+        "description": "Grocery Run",
+        "category": "Grocery",
+        "upi_id": "blinkit@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Blinkit"
+    },
+    {
+        "id": "txn_1234567979",
+        "amount": 500.00,
+        "timestamp": "2024-03-27T13:30:00Z",
+        "description": "Train Ticket",
+        "category": "Transportation",
+        "upi_id": "irctc@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "IRCTC"
+    },
+    {
+        "id": "txn_1234567980",
+        "amount": 430.00,
+        "timestamp": "2024-03-27T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567981",
+        "amount": 102.00,
+        "timestamp": "2024-03-28T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567982",
+        "amount": 350.00,
+        "timestamp": "2024-03-28T13:15:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567983",
+        "amount": 2300.00,
+        "timestamp": "2024-03-29T16:00:00Z",
+        "description": "Groceries",
+        "category": "Grocery",
+        "upi_id": "bigbasket@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "BigBasket"
+    },
+    {
+        "id": "txn_1234567984",
+        "amount": 600.00,
+        "timestamp": "2024-03-30T20:30:00Z",
+        "description": "Dinner - Weekend",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567985",
+        "amount": 650.00,
+        "timestamp": "2024-03-31T14:00:00Z",
+        "description": "Lunch - Sunday outing",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567986",
+        "amount": 60000.00,
+        "timestamp": "2024-04-01T09:05:00Z",
+        "description": "Salary",
+        "category": "Salary",
+        "upi_id": "natpaycor@hdfc",
+        "transaction_type": "Credit",
+        "merchant_name": "NatPay Corp"
+    },
+    {
+        "id": "txn_1234567987",
+        "amount": 390.00,
+        "timestamp": "2024-04-01T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567988",
+        "amount": 108.00,
+        "timestamp": "2024-04-02T08:05:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567989",
+        "amount": 520.00,
+        "timestamp": "2024-04-02T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567990",
+        "amount": 93.00,
+        "timestamp": "2024-04-03T07:55:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234567991",
+        "amount": 3500.00,
+        "timestamp": "2024-04-03T15:00:00Z",
+        "description": "New Shoes - Sale",
+        "category": "Other",
+        "upi_id": "myntra@kotak",
+        "transaction_type": "Debit",
+        "merchant_name": "Myntra"
+    },
+    {
+        "id": "txn_1234567992",
+        "amount": 470.00,
+        "timestamp": "2024-04-04T13:10:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234567993",
+        "amount": 12000.00,
+        "timestamp": "2024-04-05T18:05:00Z",
+        "description": "Monthly Rent",
+        "category": "Rental",
+        "upi_id": "landlord@sbi",
+        "transaction_type": "Debit",
+        "merchant_name": "Landlord"
+    },
+    {
+        "id": "txn_1234567994",
+        "amount": 112.00,
+        "timestamp": "2024-04-06T08:15:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234567995",
+        "amount": 560.00,
+        "timestamp": "2024-04-06T21:10:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567996",
+        "amount": 2600.00,
+        "timestamp": "2024-04-07T16:00:00Z",
+        "description": "Weekly Groceries",
+        "category": "Grocery",
+        "upi_id": "bigbasket@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "BigBasket"
+    },
+    {
+        "id": "txn_1234567997",
+        "amount": 96.00,
+        "timestamp": "2024-04-08T07:50:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234567998",
+        "amount": 430.00,
+        "timestamp": "2024-04-08T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234567999",
+        "amount": 540.00,
+        "timestamp": "2024-04-08T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568000",
+        "amount": 649.00,
+        "timestamp": "2024-04-10T20:45:00Z",
+        "description": "Netflix Subscription",
+        "category": "Entertainment",
+        "upi_id": "netflix@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Netflix"
+    },
+    {
+        "id": "txn_1234568001",
+        "amount": 199.00,
+        "timestamp": "2024-04-10T20:46:00Z",
+        "description": "Spotify Subscription",
+        "category": "Entertainment",
+        "upi_id": "spotify@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Spotify"
+    },
+    {
+        "id": "txn_1234568002",
+        "amount": 107.00,
+        "timestamp": "2024-04-11T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568003",
+        "amount": 480.00,
+        "timestamp": "2024-04-11T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568004",
+        "amount": 590.00,
+        "timestamp": "2024-04-11T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568005",
+        "amount": 2400.00,
+        "timestamp": "2024-04-12T15:45:00Z",
+        "description": "Grocery Run",
+        "category": "Grocery",
+        "upi_id": "blinkit@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Blinkit"
+    },
+    {
+        "id": "txn_1234568006",
+        "amount": 97.00,
+        "timestamp": "2024-04-13T08:10:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568007",
+        "amount": 460.00,
+        "timestamp": "2024-04-13T20:40:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568008",
+        "amount": 2500.00,
+        "timestamp": "2024-04-14T14:00:00Z",
+        "description": "Ugadi celebration dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568009",
+        "amount": 970.00,
+        "timestamp": "2024-04-15T10:30:00Z",
+        "description": "Electricity Bill",
+        "category": "Utilities",
+        "upi_id": "bescom@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "BESCOM"
+    },
+    {
+        "id": "txn_1234568010",
+        "amount": 113.00,
+        "timestamp": "2024-04-15T08:05:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568011",
+        "amount": 580.00,
+        "timestamp": "2024-04-15T21:10:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568012",
+        "amount": 3800.00,
+        "timestamp": "2024-04-16T11:00:00Z",
+        "description": "Annual dental checkup",
+        "category": "Healthcare",
+        "upi_id": "dentcare@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "DentCare Clinic"
+    },
+    {
+        "id": "txn_1234568013",
+        "amount": 440.00,
+        "timestamp": "2024-04-16T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568014",
+        "amount": 103.00,
+        "timestamp": "2024-04-17T08:00:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568015",
+        "amount": 799.00,
+        "timestamp": "2024-04-17T11:30:00Z",
+        "description": "Broadband Bill",
+        "category": "Utilities",
+        "upi_id": "jio@jiopay",
+        "transaction_type": "Debit",
+        "merchant_name": "Jio Fiber"
+    },
+    {
+        "id": "txn_1234568016",
+        "amount": 510.00,
+        "timestamp": "2024-04-17T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568017",
+        "amount": 2700.00,
+        "timestamp": "2024-04-18T16:30:00Z",
+        "description": "Groceries",
+        "category": "Grocery",
+        "upi_id": "bigbasket@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "BigBasket"
+    },
+    {
+        "id": "txn_1234568018",
+        "amount": 109.00,
+        "timestamp": "2024-04-19T08:10:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568019",
+        "amount": 450.00,
+        "timestamp": "2024-04-19T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568020",
+        "amount": 570.00,
+        "timestamp": "2024-04-19T21:15:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568021",
+        "amount": 5000.00,
+        "timestamp": "2024-04-20T10:00:00Z",
+        "description": "Money to friend",
+        "category": "Other",
+        "upi_id": "amit@okicici",
+        "transaction_type": "Debit",
+        "merchant_name": null
+    },
+    {
+        "id": "txn_1234568022",
+        "amount": 490.00,
+        "timestamp": "2024-04-20T20:45:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568023",
+        "amount": 10000.00,
+        "timestamp": "2024-04-25T10:00:00Z",
+        "description": "Mutual Fund SIP",
+        "category": "Investment",
+        "upi_id": "zerodha@kotak",
+        "transaction_type": "Debit",
+        "merchant_name": "Zerodha"
+    },
+    {
+        "id": "txn_1234568024",
+        "amount": 530.00,
+        "timestamp": "2024-04-22T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568025",
+        "amount": 104.00,
+        "timestamp": "2024-04-23T08:05:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568026",
+        "amount": 460.00,
+        "timestamp": "2024-04-23T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568027",
+        "amount": 1600.00,
+        "timestamp": "2024-04-24T16:00:00Z",
+        "description": "Grocery Run",
+        "category": "Grocery",
+        "upi_id": "blinkit@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Blinkit"
+    },
+    {
+        "id": "txn_1234568028",
+        "amount": 560.00,
+        "timestamp": "2024-04-24T21:10:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568029",
+        "amount": 111.00,
+        "timestamp": "2024-04-25T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568030",
+        "amount": 500.00,
+        "timestamp": "2024-04-25T13:10:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568031",
+        "amount": 5500.00,
+        "timestamp": "2024-04-26T14:00:00Z",
+        "description": "Weekend trip expenses",
+        "category": "Other",
+        "upi_id": "nikhil@oksbi",
+        "transaction_type": "Debit",
+        "merchant_name": null
+    },
+    {
+        "id": "txn_1234568032",
+        "amount": 610.00,
+        "timestamp": "2024-04-27T20:30:00Z",
+        "description": "Dinner - Weekend",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568033",
+        "amount": 2200.00,
+        "timestamp": "2024-04-28T15:30:00Z",
+        "description": "Groceries",
+        "category": "Grocery",
+        "upi_id": "bigbasket@hdfcbank",
+        "transaction_type": "Debit",
+        "merchant_name": "BigBasket"
+    },
+    {
+        "id": "txn_1234568034",
+        "amount": 106.00,
+        "timestamp": "2024-04-29T08:10:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568035",
+        "amount": 480.00,
+        "timestamp": "2024-04-29T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568036",
+        "amount": 620.00,
+        "timestamp": "2024-04-30T21:00:00Z",
+        "description": "Dinner - Month end",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568037",
+        "amount": 299.00,
+        "timestamp": "2024-01-03T11:00:00Z",
+        "description": "YouTube Premium",
+        "category": "Entertainment",
+        "upi_id": "google@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "YouTube Premium"
+    },
+    {
+        "id": "txn_1234568038",
+        "amount": 299.00,
+        "timestamp": "2024-02-03T11:00:00Z",
+        "description": "YouTube Premium",
+        "category": "Entertainment",
+        "upi_id": "google@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "YouTube Premium"
+    },
+    {
+        "id": "txn_1234568039",
+        "amount": 299.00,
+        "timestamp": "2024-03-03T11:00:00Z",
+        "description": "YouTube Premium",
+        "category": "Entertainment",
+        "upi_id": "google@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "YouTube Premium"
+    },
+    {
+        "id": "txn_1234568040",
+        "amount": 299.00,
+        "timestamp": "2024-04-03T11:00:00Z",
+        "description": "YouTube Premium",
+        "category": "Entertainment",
+        "upi_id": "google@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "YouTube Premium"
+    },
+    {
+        "id": "txn_1234568041",
+        "amount": 380.00,
+        "timestamp": "2024-01-06T20:30:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568042",
+        "amount": 340.00,
+        "timestamp": "2024-01-07T13:00:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568043",
+        "amount": 78.00,
+        "timestamp": "2024-01-07T08:00:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568044",
+        "amount": 450.00,
+        "timestamp": "2024-01-21T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568045",
+        "amount": 88.00,
+        "timestamp": "2024-01-21T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568046",
+        "amount": 410.00,
+        "timestamp": "2024-01-24T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568047",
+        "amount": 700.00,
+        "timestamp": "2024-01-27T21:00:00Z",
+        "description": "Dinner - Weekend",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568048",
+        "amount": 450.00,
+        "timestamp": "2024-02-02T13:15:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568049",
+        "amount": 93.00,
+        "timestamp": "2024-02-02T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568050",
+        "amount": 520.00,
+        "timestamp": "2024-02-03T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568051",
+        "amount": 84.00,
+        "timestamp": "2024-02-04T07:55:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568052",
+        "amount": 390.00,
+        "timestamp": "2024-02-06T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568053",
+        "amount": 480.00,
+        "timestamp": "2024-02-17T20:30:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568054",
+        "amount": 91.00,
+        "timestamp": "2024-02-17T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568055",
+        "amount": 430.00,
+        "timestamp": "2024-02-19T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568056",
+        "amount": 87.00,
+        "timestamp": "2024-02-19T07:55:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568057",
+        "amount": 550.00,
+        "timestamp": "2024-02-28T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568058",
+        "amount": 89.00,
+        "timestamp": "2024-02-28T07:50:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568059",
+        "amount": 1500.00,
+        "timestamp": "2024-02-29T16:00:00Z",
+        "description": "Grocery Run",
+        "category": "Grocery",
+        "upi_id": "blinkit@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Blinkit"
+    },
+    {
+        "id": "txn_1234568060",
+        "amount": 730.00,
+        "timestamp": "2024-03-03T21:00:00Z",
+        "description": "Dinner - Sunday",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568061",
+        "amount": 89.00,
+        "timestamp": "2024-03-05T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568062",
+        "amount": 400.00,
+        "timestamp": "2024-03-05T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568063",
+        "amount": 540.00,
+        "timestamp": "2024-03-06T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568064",
+        "amount": 91.00,
+        "timestamp": "2024-03-26T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568065",
+        "amount": 415.00,
+        "timestamp": "2024-03-26T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568066",
+        "amount": 660.00,
+        "timestamp": "2024-03-29T20:30:00Z",
+        "description": "Dinner - Weekend",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568067",
+        "amount": 1200.00,
+        "timestamp": "2024-04-21T14:00:00Z",
+        "description": "Eye checkup and glasses",
+        "category": "Healthcare",
+        "upi_id": "medplus@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "MedPlus"
+    },
+    {
+        "id": "txn_1234568068",
+        "amount": 799.00,
+        "timestamp": "2024-01-31T11:00:00Z",
+        "description": "Mobile Recharge",
+        "category": "Utilities",
+        "upi_id": "airtel@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "Airtel"
+    },
+    {
+        "id": "txn_1234568069",
+        "amount": 799.00,
+        "timestamp": "2024-02-29T11:00:00Z",
+        "description": "Mobile Recharge",
+        "category": "Utilities",
+        "upi_id": "airtel@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "Airtel"
+    },
+    {
+        "id": "txn_1234568070",
+        "amount": 799.00,
+        "timestamp": "2024-03-31T11:00:00Z",
+        "description": "Mobile Recharge",
+        "category": "Utilities",
+        "upi_id": "airtel@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "Airtel"
+    },
+    {
+        "id": "txn_1234568071",
+        "amount": 799.00,
+        "timestamp": "2024-04-30T11:00:00Z",
+        "description": "Mobile Recharge",
+        "category": "Utilities",
+        "upi_id": "airtel@upi",
+        "transaction_type": "Debit",
+        "merchant_name": "Airtel"
+    },
+    {
+        "id": "txn_1234568072",
+        "amount": 1400.00,
+        "timestamp": "2024-03-15T14:00:00Z",
+        "description": "Swiggy One refund",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Credit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568073",
+        "amount": 350.00,
+        "timestamp": "2024-04-10T09:00:00Z",
+        "description": "Amazon refund",
+        "category": "Other",
+        "upi_id": "amazon@apl",
+        "transaction_type": "Credit",
+        "merchant_name": "Amazon"
+    },
+    {
+        "id": "txn_1234568074",
+        "amount": 290.00,
+        "timestamp": "2024-03-24T08:10:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568075",
+        "amount": 560.00,
+        "timestamp": "2024-03-24T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568076",
+        "amount": 86.00,
+        "timestamp": "2024-04-04T07:50:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568077",
+        "amount": 550.00,
+        "timestamp": "2024-04-05T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568078",
+        "amount": 490.00,
+        "timestamp": "2024-04-09T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568079",
+        "amount": 102.00,
+        "timestamp": "2024-04-09T08:10:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568080",
+        "amount": 6500.00,
+        "timestamp": "2024-04-14T10:00:00Z",
+        "description": "Flight - Mumbai visit",
+        "category": "Transportation",
+        "upi_id": "indigo@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "IndiGo"
+    },
+    {
+        "id": "txn_1234568081",
+        "amount": 99.00,
+        "timestamp": "2024-04-28T07:55:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568082",
+        "amount": 4500.00,
+        "timestamp": "2024-03-10T14:00:00Z",
+        "description": "Annual gym membership",
+        "category": "Healthcare",
+        "upi_id": "cultfit@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Cult.fit"
+    },
+    {
+        "id": "txn_1234568083",
+        "amount": 380.00,
+        "timestamp": "2024-03-23T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568084",
+        "amount": 94.00,
+        "timestamp": "2024-03-13T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568085",
+        "amount": 500.00,
+        "timestamp": "2024-03-16T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568086",
+        "amount": 100.00,
+        "timestamp": "2024-03-18T08:10:00Z",
+        "description": "Morning Ride",
+        "category": "Transportation",
+        "upi_id": "ola@okaxis",
+        "transaction_type": "Debit",
+        "merchant_name": "Ola"
+    },
+    {
+        "id": "txn_1234568087",
+        "amount": 520.00,
+        "timestamp": "2024-03-21T21:00:00Z",
+        "description": "Dinner",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568088",
+        "amount": 97.00,
+        "timestamp": "2024-03-22T08:00:00Z",
+        "description": "Cab to office",
+        "category": "Transportation",
+        "upi_id": "uber@razorpay",
+        "transaction_type": "Debit",
+        "merchant_name": "Uber"
+    },
+    {
+        "id": "txn_1234568089",
+        "amount": 440.00,
+        "timestamp": "2024-03-22T13:30:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
+    },
+    {
+        "id": "txn_1234568090",
+        "amount": 390.00,
+        "timestamp": "2024-04-26T13:20:00Z",
+        "description": "Lunch",
+        "category": "Food",
+        "upi_id": "swiggy@icici",
+        "transaction_type": "Debit",
+        "merchant_name": "Swiggy"
+    },
+    {
+        "id": "txn_1234568091",
+        "amount": 540.00,
+        "timestamp": "2024-04-30T13:30:00Z",
+        "description": "Lunch - month end",
+        "category": "Food",
+        "upi_id": "zomato@axis",
+        "transaction_type": "Debit",
+        "merchant_name": "Zomato"
     }
 ]
