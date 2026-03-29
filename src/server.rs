@@ -90,6 +90,34 @@ pub struct RecurringPaymentsResponse<'a> {
 }
 
 #[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
+pub struct MerchantInsightsRequest {
+    #[schemars(
+        description = "The merchant name to look up. Partial and case-insensitive — 'zom' will match 'Zomato'."
+    )]
+    pub merchant_name: String,
+    #[schemars(description = "Optional start date for filtering. Format: YYYY-MM or YYYY-MM-DD")]
+    pub start_date: Option<String>,
+    #[schemars(description = "Optional end date for filtering. Format: YYYY-MM or YYYY-MM-DD")]
+    pub end_date: Option<String>,
+}
+
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
+pub struct TopMerchantsRequest {
+    #[schemars(
+        description = "Sort merchants by: 'spend' (total amount), 'count' (transaction count), or 'average' (average transaction amount). Defaults to 'spend' if not provided."
+    )]
+    pub sort_by: Option<String>,
+    #[schemars(
+        description = "Limit results to top N merchants. Returns all merchants if not provided."
+    )]
+    pub top_n: Option<usize>,
+    #[schemars(description = "Optional start date for filtering. Format: YYYY-MM or YYYY-MM-DD")]
+    pub start_date: Option<String>,
+    #[schemars(description = "Optional end date for filtering. Format: YYYY-MM or YYYY-MM-DD")]
+    pub end_date: Option<String>,
+}
+
+#[derive(Debug, serde::Deserialize, schemars::JsonSchema)]
 pub struct SpendingBreakdownRequest {
     #[schemars(
         description = "The start date for the spending breakdown. Format: YYYY-MM or YYYY-MM-DD"
@@ -239,12 +267,51 @@ impl UpiServer {
     fn detect_recurring_payments(&self) -> String {
         let recurring = self.store.recurring_transactions();
         let monthly_recurring_total: f64 = recurring.iter().map(|r| r.amount).sum();
-        
+
         let response = RecurringPaymentsResponse {
             recurring_payments: &recurring,
             monthly_recurring_total,
         };
         serde_json::to_string(&response).unwrap_or_else(|_| "Failed to serialize".to_string())
+    }
+
+    #[tool(
+        description = "Returns total spent, transaction count, and average transaction amount for a merchant. Merchant name matching is partial and case-insensitive — all matching merchants are aggregated into a single result. Returns an error message if no transactions are found for the given merchant. Use this when the user asks how much they spent at a specific store or vendor."
+    )]
+    pub fn get_merchant_insights(
+        &self,
+        Parameters(MerchantInsightsRequest {
+            merchant_name,
+            start_date,
+            end_date,
+        }): Parameters<MerchantInsightsRequest>,
+    ) -> String {
+        match self
+            .store
+            .get_merchant_insights(merchant_name, start_date, end_date)
+        {
+            Ok(insight) => serde_json::to_string(&insight)
+                .unwrap_or_else(|_| "Failed to serialize".to_string()),
+            Err(e) => e,
+        }
+    }
+
+    #[tool(
+        description = "Returns all merchants ranked by a chosen metric. Optionally accepts sort_by: 'spend' (total amount), 'count' (transaction count), or 'average' (average transaction amount) — defaults to 'spend' if not provided. Optionally accepts top_n to limit results. Use this when the user asks which merchants they spend the most at, their most frequent vendors, or wants a ranked list of merchants."
+    )]
+    pub fn get_top_merchants(
+        &self,
+        Parameters(TopMerchantsRequest {
+            sort_by,
+            top_n,
+            start_date,
+            end_date,
+        }): Parameters<TopMerchantsRequest>,
+    ) -> String {
+        let insights = self
+            .store
+            .get_top_merchants(start_date, end_date, top_n, sort_by);
+        serde_json::to_string(&insights).unwrap_or_else(|_| "Failed to serialize".to_string())
     }
 }
 

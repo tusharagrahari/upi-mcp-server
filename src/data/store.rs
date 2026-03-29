@@ -1,8 +1,11 @@
 use std::collections::{HashMap, HashSet};
 
-use chrono::{Datelike, DateTime, NaiveDate, Utc};
+use chrono::{DateTime, Datelike, NaiveDate, Utc};
 
-use crate::model::{self, Category, CategoryBreakdown, RecurringTransaction, Transaction, TransactionType};
+use crate::model::{
+    self, Category, CategoryBreakdown, MerchantInsight, RecurringTransaction, Transaction,
+    TransactionType,
+};
 
 #[derive(Debug)]
 pub struct TransactionStore {
@@ -16,7 +19,7 @@ impl TransactionStore {
         }
     }
     // this would load from a database or file
-    pub fn load() -> anyhow::Result<Self> {
+    pub fn load() -> Result<Self, serde_json::Error> {
         let data = include_str!("../../data/transaction.json");
         let t: Vec<Transaction> = serde_json::from_str(data)?;
         Ok(TransactionStore { transactions: t })
@@ -176,7 +179,12 @@ impl TransactionStore {
 
     pub fn recurring_transactions(&self) -> Vec<RecurringTransaction> {
         // Anchor = month of the latest transaction in the store
-        let anchor = match self.transactions.iter().map(|t| t.timestamp.date_naive()).max() {
+        let anchor = match self
+            .transactions
+            .iter()
+            .map(|t| t.timestamp.date_naive())
+            .max()
+        {
             Some(d) => d,
             None => return vec![],
         };
@@ -205,7 +213,10 @@ impl TransactionStore {
                 continue;
             }
             let paise = (txn.amount * 100.0).round() as i64;
-            groups.entry((merchant, paise)).or_default().push((date, txn));
+            groups
+                .entry((merchant, paise))
+                .or_default()
+                .push((date, txn));
         }
 
         let mut result = Vec::new();
@@ -235,6 +246,110 @@ impl TransactionStore {
             });
         }
         result
+    }
+
+    pub fn get_merchant_insights(
+        &self,
+        merchant: String,
+        start_date: Option<String>,
+        end_date: Option<String>,
+    ) -> Result<MerchantInsight, String> {
+        let merchant_txns: Vec<&Transaction> = self
+            .filter_combined(
+                start_date,
+                end_date,
+                None,
+                None,
+                Some(merchant.clone()),
+                None,
+            )
+            .expect("category not passed, this cannot fail");
+
+        if merchant_txns.is_empty() {
+            return Err("No transactions found for the specified merchant".to_string());
+        }
+
+        let (total_spent, debit_count): (f64, u32) =
+            merchant_txns
+                .iter()
+                .fold((0.0_f64, 0_u32), |(sum, count), txn| {
+                    if txn.transaction_type == TransactionType::Debit {
+                        (sum + txn.amount, count + 1)
+                    } else {
+                        (sum, count)
+                    }
+                });
+
+        let insight = MerchantInsight {
+            merchant_name: merchant,
+            total_amount: total_spent,
+            transaction_count: debit_count,
+            average_amount: if debit_count > 0 {
+                total_spent / (debit_count as f64)
+            } else {
+                0.0
+            },
+        };
+        Ok(insight)
+    }
+
+    pub fn get_top_merchants(
+        &self,
+        start_date: Option<String>,
+        end_date: Option<String>,
+        top_n: Option<usize>,
+        sort_by: Option<String>,
+    ) -> Vec<MerchantInsight> {
+        let filtered = self
+            .filter_combined(start_date, end_date, None, None, None, None)
+            .expect("category is None, this cannot fail");
+        let mut agg: HashMap<String, (f64, u32)> = HashMap::new();
+        for txn in filtered {
+            if txn.transaction_type == TransactionType::Credit {
+                continue; // Skip credits for merchant insights
+            }
+            let merchant = match &txn.merchant_name {
+                Some(m) => m.clone(),
+                None => continue,
+            };
+            let entry = agg.entry(merchant).or_insert((0.0, 0));
+            entry.0 += txn.amount;
+            entry.1 += 1;
+        }
+        let mut insights: Vec<MerchantInsight> = agg
+            .into_iter()
+            .map(
+                |(merchant_name, (total_amount, transaction_count))| MerchantInsight {
+                    merchant_name,
+                    total_amount,
+                    transaction_count,
+                    average_amount: if transaction_count > 0 {
+                        total_amount / (transaction_count as f64)
+                    } else {
+                        0.0
+                    },
+                },
+            )
+            .collect();
+        if let Some(sort_by) = sort_by {
+            match sort_by.to_lowercase().as_str() {
+                "total_amount" | "amount" | "spend" => {
+                    insights.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap())
+                }
+                "transaction_count" | "count" => {
+                    insights.sort_by(|a, b| b.transaction_count.cmp(&a.transaction_count))
+                }
+                "average_amount" | "average" => insights
+                    .sort_by(|a, b| b.average_amount.partial_cmp(&a.average_amount).unwrap()),
+                _ => insights.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap()),
+            };
+        } else {
+            insights.sort_by(|a, b| b.total_amount.partial_cmp(&a.total_amount).unwrap());
+        }
+        if let Some(n) = top_n {
+            insights.truncate(n);
+        }
+        insights
     }
 }
 

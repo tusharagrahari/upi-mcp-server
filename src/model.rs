@@ -65,3 +65,11 @@ pub struct RecurringTransaction {
     pub amount: f64,
     pub category: Category,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MerchantInsight {
+    pub merchant_name: String,
+    pub total_amount: f64,
+    pub transaction_count: u32,
+    pub average_amount: f64,
+}
