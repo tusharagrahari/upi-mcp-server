@@ -159,7 +159,6 @@ impl TransactionStore {
             entry.1 += 1;
             total_spent += txn.amount;
         }
-        // let mut result: Vec<(String, f64, u32)> = agg.into_iter().map(|(cat, (amount, count))| (cat, amount, count)).collect();
         let mut result: Vec<CategoryBreakdown> = agg
             .into_iter()
             .map(|(cat, (amount, count))| CategoryBreakdown {

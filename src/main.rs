@@ -8,13 +8,7 @@ pub mod model;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let store = match TransactionStore::load() {
-        Ok(s) => s,
-        Err(e) => {
-            eprintln!("Error loading transactions: {:?}", e);
-            TransactionStore::new() // Start with an empty store if loading fails
-        }
-    };
+    let store = TransactionStore::load()?;
 
     let service = UpiServer::new(store)
         .serve(stdio())

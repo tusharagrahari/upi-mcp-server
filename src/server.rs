@@ -139,7 +139,7 @@ impl UpiServer {
     }
 
     #[tool(
-        description = "Search UPI transactions based on various filters like date range, amount, merchant name, etc."
+        description = "It returns raw transactions — not aggregated, not grouped, not computed. All parameters are optional, user can filter based on start_date, end_date, min_amount, max_amount, merchant_name, category. Use it when User is exploring without a specific analytical goal. Do not use it for comparing periods, category breakdown, merchant summary, rankings, subscriptions."
     )]
     fn search_txn(
         &self,
@@ -168,7 +168,7 @@ impl UpiServer {
     }
 
     #[tool(
-        description = "Returns a breakdown of spending by category for a given time period. Shows total amount, transaction count, and percentage share per category, sorted by highest spend. Use this when the user asks about spending patterns, budget analysis, or category-wise expenses."
+        description = "Returns a breakdown of spending by category for a given time period. Shows total amount, transaction count, and percentage share per category, sorted by highest spend. Use this when the user asks about spending patterns, budget analysis, or category-wise expenses. Only for debit transactions, not credits."
     )]
     fn get_spending_breakdown(
         &self,
